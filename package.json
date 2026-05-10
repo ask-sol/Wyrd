@@ -1,0 +1,74 @@
+{
+  "name": "wyrd",
+  "version": "0.0.1",
+  "description": "Time-travel debugger and execution tracer for AI agents. Capture, inspect, and replay every LLM call, tool invocation, and agent step.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./dist/schema/index.d.ts",
+      "import": "./dist/schema/index.js"
+    },
+    "./blobs": {
+      "types": "./dist/blobs/index.d.ts",
+      "import": "./dist/blobs/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "Apache-2.0",
+  "author": "ask-sol",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ask-sol/Wyrd.git"
+  },
+  "homepage": "https://github.com/ask-sol/Wyrd",
+  "bugs": {
+    "url": "https://github.com/ask-sol/Wyrd/issues"
+  },
+  "keywords": [
+    "ai-agent",
+    "agent-debugger",
+    "agent-observability",
+    "agent-tracing",
+    "llm-tracing",
+    "llm-observability",
+    "claude",
+    "anthropic",
+    "openagent",
+    "time-travel-debugger",
+    "deterministic-replay",
+    "execution-graph",
+    "trace-replay",
+    "prompt-observability",
+    "tool-call-tracing",
+    "opentelemetry",
+    "gen-ai",
+    "telemetry",
+    "duckdb",
+    "local-first"
+  ],
+  "dependencies": {
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}
