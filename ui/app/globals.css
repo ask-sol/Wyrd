@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  html,
+  body {
+    @apply bg-bg text-ink antialiased;
+    font-size: 14px;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  *::selection {
+    background: rgba(138, 180, 248, 0.28);
+    color: #ffffff;
+  }
+
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(138, 180, 248, 0.5);
+    border-radius: 4px;
+  }
+
+  /* Dark scrollbars */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3c4043;
+    border-radius: 100px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5f6368;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+  }
+
+  /* React Flow override (dark) */
+  .react-flow__controls {
+    border: 1px solid #3c4043 !important;
+    background: #1e1f20 !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+  }
+  .react-flow__controls-button {
+    background: #1e1f20 !important;
+    border-bottom: 1px solid #2a2c2f !important;
+    fill: #bdc1c6 !important;
+  }
+  .react-flow__controls-button:hover {
+    background: #282a2c !important;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-elevated border border-border rounded-md;
+  }
+  .btn-pill {
+    @apply rounded-pill font-medium transition-colors;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+.live-dot {
+  animation: pulse-soft 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(138, 180, 248, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

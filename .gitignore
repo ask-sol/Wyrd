@@ -7,3 +7,11 @@ dist/
 .env.local
 .wyrd/
 coverage/
+
+# Local skill installs (not part of repo)
+.claude/
+
+# Next.js UI build artifacts
+ui/.next/
+ui/out/
+ui/next-env.d.ts

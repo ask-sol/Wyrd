@@ -5,6 +5,9 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "wyrd": "./bin/wyrd"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -17,10 +20,31 @@
     "./blobs": {
       "types": "./dist/blobs/index.d.ts",
       "import": "./dist/blobs/index.js"
+    },
+    "./tracer": {
+      "types": "./dist/tracer/index.d.ts",
+      "import": "./dist/tracer/index.js"
+    },
+    "./recorder": {
+      "types": "./dist/recorder/index.d.ts",
+      "import": "./dist/recorder/index.js"
+    },
+    "./integrations/openagent": {
+      "types": "./dist/integrations/openagent/index.d.ts",
+      "import": "./dist/integrations/openagent/index.js"
+    },
+    "./storage": {
+      "types": "./dist/storage/index.d.ts",
+      "import": "./dist/storage/index.js"
+    },
+    "./replay": {
+      "types": "./dist/replay/index.d.ts",
+      "import": "./dist/replay/index.js"
     }
   },
   "files": [
     "dist",
+    "bin",
     "README.md",
     "LICENSE"
   ],
@@ -65,6 +89,9 @@
     "local-first"
   ],
   "dependencies": {
+    "@duckdb/node-api": "^1.4.0-r.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.10.0",
     "ulid": "^2.3.0"
   },
   "devDependencies": {
