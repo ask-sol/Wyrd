@@ -1,79 +1,85 @@
 import type { Config } from 'tailwindcss';
 
+const cv = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+const cvOpaque = (name: string) => `rgb(var(--${name}))`;
+
 const config: Config = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        // Dark surfaces — Google AI Studio dark palette
-        bg: '#0F0F10',
-        surface: '#131314',
-        elevated: '#1E1F20',
-        subtle: '#282A2C',
-        hover: '#2A2C2F',
+        // Surfaces
+        bg: cv('bg'),
+        surface: cv('surface'),
+        elevated: cv('elevated'),
+        subtle: cv('subtle'),
+        hover: cv('hover'),
 
         // Borders & dividers
-        border: '#3C4043',
-        borderHi: '#5F6368',
-        divider: '#2A2C2F',
+        border: cv('border'),
+        borderHi: cv('border-hi'),
+        divider: cv('divider'),
 
-        // Text (inverted)
-        ink: '#E3E3E3',
-        ink2: '#BDC1C6',
-        ink3: '#9AA0A6',
-        faint: '#80868B',
+        // Text
+        ink: cv('ink'),
+        ink2: cv('ink-2'),
+        ink3: cv('ink-3'),
+        faint: cv('faint'),
 
-        // Brand — lighter blue for dark theme contrast
-        brand: '#8AB4F8',
-        brandStrong: '#A8C7FA',
-        brandSoft: 'rgba(138,180,248,0.12)',
-        brandBorder: 'rgba(138,180,248,0.4)',
+        // Brand
+        brand: cv('brand'),
+        brandStrong: cv('brand-strong'),
+        brandSoft: cvOpaque('brand-soft'),
+        brandBorder: cvOpaque('brand-border'),
 
         // Semantic
-        success: '#81C995',
-        successSoft: 'rgba(129,201,149,0.12)',
-        successBorder: 'rgba(129,201,149,0.35)',
-        warning: '#FDD663',
-        warningSoft: 'rgba(253,214,99,0.12)',
-        warningBorder: 'rgba(253,214,99,0.35)',
-        danger: '#F28B82',
-        dangerSoft: 'rgba(242,139,130,0.12)',
-        dangerBorder: 'rgba(242,139,130,0.35)',
+        success: cv('success'),
+        successSoft: cvOpaque('success-soft'),
+        successBorder: cvOpaque('success-border'),
+        warning: cv('warning'),
+        warningSoft: cvOpaque('warning-soft'),
+        warningBorder: cvOpaque('warning-border'),
+        danger: cv('danger'),
+        dangerSoft: cvOpaque('danger-soft'),
+        dangerBorder: cvOpaque('danger-border'),
 
         // Span-kind tints
-        kAgent: '#9AA0A6',
-        kAgentSoft: 'rgba(154,160,166,0.12)',
-        kLlm: '#8AB4F8',
-        kLlmSoft: 'rgba(138,180,248,0.14)',
-        kTool: '#C58AF9',
-        kToolSoft: 'rgba(197,138,249,0.14)',
+        kAgent: cv('k-agent'),
+        kAgentSoft: cvOpaque('k-agent-soft'),
+        kLlm: cv('k-llm'),
+        kLlmSoft: cvOpaque('k-llm-soft'),
+        kTool: cv('k-tool'),
+        kToolSoft: cvOpaque('k-tool-soft'),
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'Roboto', 'system-ui', 'Arial', 'sans-serif'],
-        mono: ['var(--font-mono)', 'Roboto Mono', 'ui-monospace', 'monospace'],
+        sans: ['var(--font-sans)', 'Google Sans', 'Google Sans Text', 'Roboto', 'system-ui', 'Arial', 'sans-serif'],
+        mono: ['var(--font-mono)', 'Roboto Mono', 'Google Sans Mono', 'ui-monospace', 'monospace'],
       },
       fontSize: {
+        // Cloud Console-style dense scale: body locked at 14px.
         '2xs': ['11px', { lineHeight: '16px' }],
         xs: ['12px', { lineHeight: '16px' }],
         sm: ['13px', { lineHeight: '18px' }],
         base: ['14px', { lineHeight: '20px' }],
         lg: ['16px', { lineHeight: '24px' }],
-        xl: ['18px', { lineHeight: '24px' }],
+        xl: ['18px', { lineHeight: '24px', letterSpacing: '0' }],
         '2xl': ['22px', { lineHeight: '28px' }],
-        '3xl': ['28px', { lineHeight: '36px' }],
+        '3xl': ['24px', { lineHeight: '32px', fontWeight: '400' }], // GCC page titles: 24/400
       },
       borderRadius: {
         none: '0',
-        sm: '4px',
+        sm: '4px', // GCC inputs
         DEFAULT: '6px',
-        md: '8px',
+        md: '8px', // GCC cards
         lg: '12px',
         pill: '100px',
       },
       boxShadow: {
-        e1: '0 1px 2px rgba(0,0,0,0.35)',
-        e2: '0 1px 2px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.25)',
-        focus: '0 0 0 2px rgba(138,180,248,0.4)',
+        e1: '0 1px 2px var(--shadow-1)',
+        e2: '0 1px 2px var(--shadow-1), 0 2px 6px var(--shadow-2)',
+        e3: '0 4px 8px 3px var(--shadow-1), 0 1px 3px var(--shadow-2)',
+        focus: '0 0 0 2px rgb(var(--brand) / 0.4)',
       },
     },
   },

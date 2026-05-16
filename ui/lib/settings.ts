@@ -8,10 +8,18 @@ export interface InferwallSettings {
   auto_manage: boolean;
 }
 
+export interface ReexecuteSettings {
+  /** Absolute path to a local OpenAgent checkout, or empty to auto-discover. */
+  openagent_path: string;
+  /** Bun / Node binary used to spawn OpenAgent. Default: 'bun'. */
+  runtime: 'bun' | 'node';
+}
+
 export interface ConsoleSettings {
   inferwall: InferwallSettings;
   retention_days: number | null;
   live_poll_ms: number;
+  reexecute: ReexecuteSettings;
 }
 
 export const DEFAULT_SETTINGS: ConsoleSettings = {
@@ -22,6 +30,10 @@ export const DEFAULT_SETTINGS: ConsoleSettings = {
   },
   retention_days: null,
   live_poll_ms: 2000,
+  reexecute: {
+    openagent_path: '',
+    runtime: 'bun',
+  },
 };
 
 function configPath(): string {
@@ -36,6 +48,7 @@ export async function loadSettings(): Promise<ConsoleSettings> {
       ...DEFAULT_SETTINGS,
       ...parsed,
       inferwall: { ...DEFAULT_SETTINGS.inferwall, ...(parsed.inferwall ?? {}) },
+      reexecute: { ...DEFAULT_SETTINGS.reexecute, ...(parsed.reexecute ?? {}) },
     };
   } catch {
     return DEFAULT_SETTINGS;

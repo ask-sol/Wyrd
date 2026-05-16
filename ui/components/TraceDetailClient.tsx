@@ -8,6 +8,7 @@ import { KpiCard } from './KpiCard';
 import { PageHeader } from './PageHeader';
 import { AnnotationsPanel } from './AnnotationsPanel';
 import { ExportBundleButton } from './BundleActions';
+import { ReexecuteButton } from './ReexecuteButton';
 import { Replay } from './Replay';
 import { SecurityPanel } from './SecurityPanel';
 import { SegmentedControl } from './SegmentedControl';
@@ -92,12 +93,20 @@ export function TraceDetailClient({ payload }: { payload: TraceDetailPayload }) 
             <button
               onClick={() => setMode('replay')}
               disabled={payload.trace.status === 'running'}
-              title={payload.trace.status === 'running' ? 'Trace is still in flight' : 'Step through the trace'}
+              title={
+                payload.trace.status === 'running'
+                  ? 'Trace is still in flight'
+                  : 'Rewatch the captured trace from cache (no LLM billing)'
+              }
               className="inline-flex items-center gap-1.5 h-8 px-4 rounded-pill bg-brand hover:bg-brandStrong text-white text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Play size={14} strokeWidth={2.5} fill="currentColor" />
-              Reproduce
+              Replay
             </button>
+            <ReexecuteButton
+              traceId={payload.trace.trace_id}
+              disabled={payload.trace.status === 'running'}
+            />
           </>
         }
       />

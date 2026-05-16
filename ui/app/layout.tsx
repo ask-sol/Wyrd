@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto_Flex, Roboto_Mono } from 'next/font/google';
+import { ThemeProvider, themeInitScript } from '@/components/ThemeProvider';
 import './globals.css';
 
 const sans = Roboto_Flex({
@@ -22,8 +23,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
-      <body className="font-sans">{children}</body>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="font-sans">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

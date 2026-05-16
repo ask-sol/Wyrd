@@ -1,6 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import type { TrendsRow } from '@/lib/trends';
+import { useTheme } from './ThemeProvider';
 
 type Series = 'cost_usd' | 'input_tokens' | 'output_tokens' | 'trace_count' | 'p95_duration_ms' | 'error_count';
 
@@ -55,6 +56,10 @@ const SERIES_META: Record<
 };
 
 export function TrendsChart({ buckets, defaultSeries = 'cost_usd' }: { buckets: TrendsRow[]; defaultSeries?: Series }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  const axisColor = isDark ? '#9AA0A6' : '#5F6368';
+  const gridColor = isDark ? '#282A2C' : '#E8EAED';
   const [series, setSeries] = useState<Series>(defaultSeries);
   const meta = SERIES_META[series];
 
@@ -136,7 +141,7 @@ export function TrendsChart({ buckets, defaultSeries = 'cost_usd' }: { buckets: 
                 x2={W - PAD_R}
                 y1={y}
                 y2={y}
-                stroke="#282A2C"
+                stroke={gridColor}
                 strokeWidth={1}
                 strokeDasharray={p === 0 ? '' : '2 4'}
               />
@@ -146,7 +151,7 @@ export function TrendsChart({ buckets, defaultSeries = 'cost_usd' }: { buckets: 
                 fontSize={10}
                 fontFamily="monospace"
                 textAnchor="end"
-                fill="#9AA0A6"
+                fill={axisColor}
               >
                 {meta.format(max * p)}
               </text>
@@ -199,7 +204,7 @@ export function TrendsChart({ buckets, defaultSeries = 'cost_usd' }: { buckets: 
               fontSize={10}
               fontFamily="monospace"
               textAnchor="middle"
-              fill="#9AA0A6"
+              fill={axisColor}
             >
               {label}
             </text>

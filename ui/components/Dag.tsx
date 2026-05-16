@@ -13,6 +13,7 @@ import '@xyflow/react/dist/style.css';
 import type { WyrdSpan } from '@/lib/types';
 import type { VirtualKind, VirtualNode } from '@/lib/expandTrace';
 import { formatDuration, formatNumber } from '@/lib/format';
+import { useTheme } from './ThemeProvider';
 
 type GraphItem =
   | { kind: 'span'; id: string; parentId: string | null; span: WyrdSpan }
@@ -265,6 +266,11 @@ export function Dag({
   onSelect: (id: string) => void;
   traceId?: string;
 }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  const edgeColor = isDark ? '#5F6368' : '#9AA0A6';
+  const edgeColorMuted = isDark ? '#3C4043' : '#DADCE0';
+  const bgDot = isDark ? '#282A2C' : '#E8EAED';
   const [virtuals, setVirtuals] = useState<VirtualNode[]>([]);
   const [loadingVirtuals, setLoadingVirtuals] = useState(false);
   // Real spans are always expanded; virtual nodes default collapsed.
@@ -376,7 +382,7 @@ export function Dag({
           source: it.parentId as string,
           target: it.id,
           style: {
-            stroke: isVirtualEdge ? '#3C4043' : '#5F6368',
+            stroke: isVirtualEdge ? edgeColorMuted : edgeColor,
             strokeWidth: isVirtualEdge ? 1 : 1.5,
             strokeDasharray: isVirtualEdge ? '3 3' : undefined,
           },
@@ -385,7 +391,7 @@ export function Dag({
       });
 
     return { nodes: ns, edges: es, virtualChildCount: virtuals.length };
-  }, [spans, virtuals, expanded, selectedId]);
+  }, [spans, virtuals, expanded, selectedId, edgeColor, edgeColorMuted]);
 
   if (spans.length === 0) {
     return <div className="text-sm text-ink3 p-6">No spans recorded.</div>;
@@ -443,7 +449,7 @@ export function Dag({
         nodesConnectable={false}
         elementsSelectable
       >
-        <Background gap={24} size={1} color="#282A2C" />
+        <Background gap={24} size={1} color={bgDot} />
         <Controls showInteractive={false} className="!bg-surface !border-border" />
       </ReactFlow>
     </div>

@@ -8,6 +8,8 @@ const nextConfig = {
   reactStrictMode: true,
   outputFileTracingRoot: __dirname,
   serverExternalPackages: ['better-sqlite3', 'bindings'],
+  // Hide the floating Next.js dev indicator in the corner; we have our own UI chrome.
+  devIndicators: false,
   webpack: (config, { isServer }) => {
     if (isServer) {
       // `better-sqlite3` -> `bindings` resolves its native `.node` by parsing

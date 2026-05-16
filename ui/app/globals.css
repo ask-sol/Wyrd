@@ -2,10 +2,121 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ──────────────────────────────────────────────────────────────────────
+ * Theme tokens. Light = Google Cloud Console; Dark = AI Studio dark.
+ * Values are space-separated RGB triplets so Tailwind's `rgb(... / a)`
+ * function can apply alpha.
+ * ────────────────────────────────────────────────────────────────────── */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  /* Cloud Console: clean whites, conservative blues, sharp neutrals. */
+  --bg: 255 255 255;            /* #FFFFFF */
+  --surface: 255 255 255;       /* #FFFFFF */
+  --elevated: 248 250 253;      /* #F8FAFD */
+  --subtle: 241 243 244;        /* #F1F3F4 */
+  --hover: 248 249 250;         /* #F8F9FA */
+
+  --border: 218 220 224;        /* #DADCE0 */
+  --border-hi: 154 160 166;     /* #9AA0A6 */
+  --divider: 232 234 237;       /* #E8EAED */
+
+  --ink: 31 31 31;              /* #1F1F1F */
+  --ink-2: 60 64 67;            /* #3C4043 */
+  --ink-3: 95 99 104;           /* #5F6368 */
+  --faint: 128 134 139;         /* #80868B */
+
+  --brand: 26 115 232;          /* #1A73E8 — Google Blue */
+  --brand-strong: 25 103 210;   /* #1967D2 */
+  --brand-soft: 232 240 254;    /* #E8F0FE */
+  --brand-border: 174 203 250;  /* #AECBFA */
+
+  --success: 30 142 62;         /* #1E8E3E */
+  --success-soft: 230 244 234;  /* #E6F4EA */
+  --success-border: 192 224 198;/* #C0E0C6 */
+  --warning: 234 134 0;         /* #EA8600 */
+  --warning-soft: 254 247 224;  /* #FEF7E0 */
+  --warning-border: 248 222 161;/* #F8DEA1 */
+  --danger: 217 48 37;          /* #D93025 */
+  --danger-soft: 252 232 230;   /* #FCE8E6 */
+  --danger-border: 244 199 195; /* #F4C7C3 */
+
+  --k-agent: 95 99 104;         /* #5F6368 */
+  --k-agent-soft: 241 243 244;  /* #F1F3F4 */
+  --k-llm: 26 115 232;          /* #1A73E8 */
+  --k-llm-soft: 232 240 254;    /* #E8F0FE */
+  --k-tool: 161 66 244;         /* #A142F4 */
+  --k-tool-soft: 244 233 254;   /* #F4E9FE */
+
+  --shadow-1: rgba(60, 64, 67, 0.3);
+  --shadow-2: rgba(60, 64, 67, 0.15);
+
+  --scrollbar: 218 220 224;
+  --scrollbar-hover: 154 160 166;
+  --rf-control-bg: 255 255 255;
+  --rf-control-border: 218 220 224;
+  --rf-control-hover: 248 249 250;
+  --rf-control-icon: 60 64 67;
+  --rf-bg-dot: 232 234 237;
+  --selection: rgba(26, 115, 232, 0.24);
+  --selection-text: 31 31 31;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: 15 15 16;               /* #0F0F10 */
+  --surface: 19 19 20;          /* #131314 */
+  --elevated: 30 31 32;         /* #1E1F20 */
+  --subtle: 40 42 44;           /* #282A2C */
+  --hover: 42 44 47;            /* #2A2C2F */
+
+  --border: 60 64 67;           /* #3C4043 */
+  --border-hi: 95 99 104;       /* #5F6368 */
+  --divider: 42 44 47;          /* #2A2C2F */
+
+  --ink: 227 227 227;           /* #E3E3E3 */
+  --ink-2: 189 193 198;         /* #BDC1C6 */
+  --ink-3: 154 160 166;         /* #9AA0A6 */
+  --faint: 128 134 139;         /* #80868B */
+
+  --brand: 138 180 248;         /* #8AB4F8 */
+  --brand-strong: 168 199 250;  /* #A8C7FA */
+  --brand-soft: 35 51 78;       /* darkened E8F0FE */
+  --brand-border: 76 104 158;   /* darkened AECBFA */
+
+  --success: 129 201 149;       /* #81C995 */
+  --success-soft: 32 51 39;
+  --success-border: 60 96 73;
+  --warning: 253 214 99;        /* #FDD663 */
+  --warning-soft: 56 47 27;
+  --warning-border: 102 86 49;
+  --danger: 242 139 130;        /* #F28B82 */
+  --danger-soft: 65 40 38;
+  --danger-border: 109 67 64;
+
+  --k-agent: 154 160 166;
+  --k-agent-soft: 36 38 40;
+  --k-llm: 138 180 248;
+  --k-llm-soft: 26 38 60;
+  --k-tool: 197 138 249;
+  --k-tool-soft: 44 28 64;
+
+  --shadow-1: rgba(0, 0, 0, 0.35);
+  --shadow-2: rgba(0, 0, 0, 0.25);
+
+  --scrollbar: 60 64 67;
+  --scrollbar-hover: 95 99 104;
+  --rf-control-bg: 30 31 32;
+  --rf-control-border: 60 64 67;
+  --rf-control-hover: 40 42 44;
+  --rf-control-icon: 189 193 198;
+  --rf-bg-dot: 40 42 44;
+  --selection: rgba(138, 180, 248, 0.28);
+  --selection-text: 255 255 255;
+}
+
 @layer base {
-  html {
-    color-scheme: dark;
-  }
   html,
   body {
     @apply bg-bg text-ink antialiased;
@@ -17,17 +128,16 @@
   }
 
   *::selection {
-    background: rgba(138, 180, 248, 0.28);
-    color: #ffffff;
+    background: var(--selection);
+    color: rgb(var(--selection-text));
   }
 
   *:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(138, 180, 248, 0.5);
+    box-shadow: 0 0 0 2px rgb(var(--brand) / 0.5);
     border-radius: 4px;
   }
 
-  /* Dark scrollbars */
   ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -36,30 +146,30 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #3c4043;
+    background: rgb(var(--scrollbar));
     border-radius: 100px;
     border: 3px solid transparent;
     background-clip: padding-box;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #5f6368;
+    background: rgb(var(--scrollbar-hover));
     background-clip: padding-box;
     border: 3px solid transparent;
   }
 
-  /* React Flow override (dark) */
+  /* React Flow theme bindings */
   .react-flow__controls {
-    border: 1px solid #3c4043 !important;
-    background: #1e1f20 !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgb(var(--rf-control-border)) !important;
+    background: rgb(var(--rf-control-bg)) !important;
+    box-shadow: 0 1px 2px var(--shadow-1) !important;
   }
   .react-flow__controls-button {
-    background: #1e1f20 !important;
-    border-bottom: 1px solid #2a2c2f !important;
-    fill: #bdc1c6 !important;
+    background: rgb(var(--rf-control-bg)) !important;
+    border-bottom: 1px solid rgb(var(--rf-control-border)) !important;
+    fill: rgb(var(--rf-control-icon)) !important;
   }
   .react-flow__controls-button:hover {
-    background: #282a2c !important;
+    background: rgb(var(--rf-control-hover)) !important;
   }
 }
 
@@ -81,6 +191,35 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-in-up {
+  animation: fadeUp 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes ringPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(var(--brand) / 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgb(var(--brand) / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(var(--brand) / 0);
+  }
+}
+.ring-pulse {
+  animation: ringPulse 2.2s ease-out infinite;
 }
 
 @keyframes pulse-soft {
@@ -108,7 +247,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(138, 180, 248, 0.1) 50%,
+    rgb(var(--brand) / 0.1) 50%,
     transparent 100%
   );
   background-size: 200% 100%;

@@ -146,6 +146,52 @@ export function SettingsForm({
         </Row>
       </Section>
 
+      <Section
+        title="Re-execute"
+        subtitle="The Re-execute button on a trace spawns OpenAgent's headless mode (--prompt) with WYRD_ENABLED=1, producing a fresh, captured run."
+      >
+        <Row label="OpenAgent path">
+          <input
+            type="text"
+            value={settings.reexecute.openagent_path}
+            onChange={(e) =>
+              setSettings((s) => ({
+                ...s,
+                reexecute: { ...s.reexecute, openagent_path: e.target.value },
+              }))
+            }
+            placeholder="auto-detect (~/Documents/GitHub/openagent, ~/code/openagent, ...)"
+            className="w-full max-w-xl h-9 px-3 bg-surface border border-border rounded-sm text-sm font-mono focus:border-brand focus:border-2 outline-none transition-colors"
+          />
+          <p className="mt-2 text-xs text-ink3">
+            Leave blank and Wyrd will probe common locations. Required only if your checkout lives somewhere unusual.
+          </p>
+        </Row>
+        <Row label="Runtime">
+          <div className="flex items-center gap-3">
+            {(['bun', 'node'] as const).map((rt) => (
+              <label
+                key={rt}
+                className="inline-flex items-center gap-1.5 cursor-pointer text-sm text-ink2"
+              >
+                <input
+                  type="radio"
+                  checked={settings.reexecute.runtime === rt}
+                  onChange={() =>
+                    setSettings((s) => ({ ...s, reexecute: { ...s.reexecute, runtime: rt } }))
+                  }
+                  className="accent-brand"
+                />
+                <code className="font-mono">{rt}</code>
+              </label>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-ink3">
+            Bun is the default. Node uses <code className="font-mono">npx tsx</code> as a fallback if Bun isn't on PATH.
+          </p>
+        </Row>
+      </Section>
+
       <Section title="Retention" subtitle="Automatically prune old traces. Off by default.">
         <Row label="Delete traces older than">
           <div className="flex items-center gap-2">
